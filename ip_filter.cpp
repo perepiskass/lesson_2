@@ -17,7 +17,7 @@ enum octet {
     four = 3,
     any = 4
 };
-using filtrElement = std::pair<int,octet>;
+using Condition = std::pair<int,octet>;
 
 
 // ("",  '.') -> [""]
@@ -83,6 +83,8 @@ auto reverseSort(const mainVector& ip_pool)
     return ip;
 }
 
+
+// Search by condition and print
 template<typename... Args>
 void findAndPrint(const sortVector* sort_ip,Args&&... args)
 {
@@ -93,7 +95,6 @@ template<typename T,typename... Args>
 void findAndPrint(const sortVector* sort_ip,T&& t,Args&&... args)
 {
     auto tmp = new sortVector();
-    //static_assert(typeof(t)!=typeof(filtr_element),"Do not correct argument!");
     if(t.second == any){
         for (auto& z : *sort_ip)
         {
@@ -115,12 +116,12 @@ int main()
 {
     try
     {
-        mainVector ip_pool;     // Создаем вектор из векторов на string
+        mainVector ip_pool;
 
-        for(std::string line; std::getline(std::cin, line);)        // Считываем входной поток (строку std::getline) в string line пока он не кончится 
+        for(std::string line; std::getline(std::cin, line);)
         {
-            auto v = split(line, '\t');         // Заполняем вектор v строками из исходно считанной строки значениями разделенными \t
-            ip_pool.push_back(split(v.at(0), '.'));     // Заполняем вектор ip_pool нужными значениями из 0 элемента вектора v вектором состоящим из строк значений до точки
+            auto v = split(line, '\t');       
+            ip_pool.push_back(split(v.at(0), '.'));
         }
 
         // TODO reverse lexicographically sort
@@ -138,7 +139,7 @@ int main()
         // 1.1.234.8
         // TODO filter by first byte and output
         // ip = filter(1)
-        findAndPrint(sort_ip,filtrElement{1,octet::one});
+        findAndPrint(sort_ip,Condition{1,octet::one});
 
 
         // 1.231.69.33
@@ -149,7 +150,7 @@ int main()
 
         // TODO filter by first and second bytes and output
         // ip = filter(46, 70)
-        findAndPrint(sort_ip,filtrElement{46,octet::one},filtrElement{70,octet::two});
+        findAndPrint(sort_ip,Condition{46,octet::one},Condition{70,octet::two});
 
         // 46.70.225.39
         // 46.70.147.26
@@ -158,7 +159,7 @@ int main()
 
         // TODO filter by any byte and output
         // ip = filter_any(46)
-        findAndPrint(sort_ip,filtrElement{46,octet::any});
+        findAndPrint(sort_ip,Condition{46,octet::any});
 
         // 186.204.34.46
         // 186.46.222.194
