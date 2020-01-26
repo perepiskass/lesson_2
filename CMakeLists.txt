@@ -4,11 +4,11 @@ cmake_minimum_required(VERSION 3.2)
 # НАЗНАЧАЕМ ИМЯ ПРОЕКТУ И УСТАНАВЛИВАЕМ НОМЕР ВЕРСИИ------------------------
 # если определена среда сборки Travis то выставляем номер сборки из Travis
 if($ENV{TRAVIS_BUILD_NUMBER})
-project(IP_FILTER VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+project(ip_filter VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 
 # если среда не найдена то ставим номер сборки указанный ниже
 else()
-project(IP_FILTER VERSION 0.0.5)
+project(ip_filter VERSION 0.0.5)
 endif()
 # --------------------------------------------------------------------------
 
